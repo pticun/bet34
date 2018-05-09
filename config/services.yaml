@@ -26,3 +26,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Command\:
+        resource: '../src/Command'
+        bind:
+            $em: "@doctrine.orm.default_entity_manager"
+
+    App\Service\Unibet\:
+        resource: '../src/Service/Unibet'
+        bind:
+            $unibetApi: "@eight_points_guzzle.client.unibet"

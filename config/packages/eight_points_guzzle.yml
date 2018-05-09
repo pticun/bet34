@@ -1,0 +1,16 @@
+eight_points_guzzle:
+    logging: true
+
+    clients:
+        unibet:
+            base_url: "https://www.unibet.fr"
+            options:
+                headers:
+                    Accept: "application/json, text/javascript, */*; q=0.01"
+                    Accept-Language: "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3"
+                    Cache-Control: "no-cache"
+                    Connection: "keep-alive"
+                    Host: "www.unibet.fr"
+                    Pragma: "cache"
+                    User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:59.0) Gecko/20100101 Firefox/59.0"
+                    X-Requested-With: "XMLHttpRequest"
