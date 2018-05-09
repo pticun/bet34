@@ -8,6 +8,8 @@ use App\Field\MarketFieldInterface;
 use App\Entity\Bet;
 use App\Entity\Game;
 
+use App\Helper\Chrono;
+
 use App\Repository\BetRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,7 +39,7 @@ class BetManager implements ManagerInterface
         $bet->setMarketName($market[MarketFieldInterface::MARKET_NAME]);
         $bet->setHomeScore($game[GameFieldInterface::SCORE][GameFieldInterface::EVENT_HOME_SCORE]);
         $bet->setAwayScore($game[GameFieldInterface::SCORE][GameFieldInterface::EVENT_AWAY_SCORE]);
-        $bet->setChrono($game[GameFieldInterface::CHRONO][GameFieldInterface::CHRONO_VALUE]);
+        $bet->setChrono(Chrono::extractChrono($game[GameFieldInterface::CHRONO][GameFieldInterface::CHRONO_VALUE]));
         $bet->setPeriod($game[GameFieldInterface::CHRONO][GameFieldInterface::CHRONO_PERIOD]);
 
         $selections = $market[MarketFieldInterface::SELECTIONS];

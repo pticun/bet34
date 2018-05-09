@@ -6,6 +6,8 @@ use App\Field\GameFieldInterface;
 
 use App\Entity\Game;
 
+use App\Helper\Chrono;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 class GameManager implements ManagerInterface
@@ -68,7 +70,7 @@ class GameManager implements ManagerInterface
 
     public function updateChrono(Game $game, string $chrono, string $period): Game
     {
-        $game->setChrono($chrono);
+        $game->setChrono(Chrono::extractChrono($chrono));
         $game->setPeriod($period);
 
         return $game;

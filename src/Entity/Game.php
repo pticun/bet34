@@ -77,7 +77,7 @@ class Game
     private $awayScore;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
     private $chrono;
 
@@ -241,12 +241,12 @@ class Game
         return $this;
     }
 
-    public function getChrono(): string
+    public function getChrono(): int
     {
         return $this->chrono;
     }
 
-    public function setChrono(string $chrono): self
+    public function setChrono(int $chrono): self
     {
         $this->chrono = $chrono;
 
