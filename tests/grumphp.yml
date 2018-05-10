@@ -21,6 +21,6 @@ parameters:
                 priority: 2
         phpstan:
             configuration: test/phpstan.neon
-            level: 6
+            level: 7
             metadata:
                 priority: 2

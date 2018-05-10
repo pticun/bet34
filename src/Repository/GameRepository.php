@@ -23,10 +23,13 @@ class GameRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('game')
             ->update(Game::class, 'game')
-            ->set('game.isLive', 0)
+            ->set('game.isLive', ':isLive')
             ->andWhere('game.unibetId NOT IN (:liveGameIds)')
             ->andWhere('game.isLive = true')
-            ->setParameter('liveGameIds', $liveGameIds)
+            ->setParameters([
+                'liveGameIds' => $liveGameIds,
+                'isLive' => false,
+            ])
             ->getQuery()
             ->execute()
         ;

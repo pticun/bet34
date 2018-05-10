@@ -2,12 +2,10 @@
 
 namespace App\Manager;
 
-use App\Field\GameFieldInterface;
-
 use App\Entity\Game;
-
+use App\Field\GameFieldInterface;
 use App\Helper\Chrono;
-
+use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class GameManager implements ManagerInterface
@@ -17,10 +15,17 @@ class GameManager implements ManagerInterface
      */
     private $em;
 
+    /**
+     * @var GameRepository
+     */
+    private $gameRepository;
+
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        GameRepository $gameRepository
     ) {
         $this->em = $em;
+        $this->gameRepository = $gameRepository;
     }
 
     public function generate(array $data = []): Game
@@ -47,18 +52,14 @@ class GameManager implements ManagerInterface
 
     public function getOrPersist(array $data = []): Game
     {
-        if (null !== $game = $this->get($data[GameFieldInterface::EVENT_ID])) {
-            return $game;
-        }
+        $game = $this->get($data[GameFieldInterface::EVENT_ID]);
 
-        return $this->persist($data);
+        return $game ?? $this->persist($data);
     }
 
     public function get(string $eventId): ?Game
     {
-        return $this->em->getRepository(Game::class)->findOneBy([
-            'unibetId' => $eventId
-        ]);
+        return $this->gameRepository->findOneBy(['unibetId' => $eventId]);
     }
 
     public function updateScore(Game $game, int $homeScore, int $awayScore): Game
@@ -80,7 +81,7 @@ class GameManager implements ManagerInterface
     private function getDateTimeFromMicrotime(int $timestamp): \DateTime
     {
         $datetime = new \DateTime();
-        $datetime->setTimestamp($timestamp/1000);
+        $datetime->setTimestamp($timestamp / 1000);
 
         return $datetime;
     }
