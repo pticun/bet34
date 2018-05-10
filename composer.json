@@ -83,7 +83,7 @@
             "allow-contrib": false
         },
         "grumphp": {
-          "config-default-path": "test/grumphp.yml"
+          "config-default-path": "tests/grumphp.yml"
         },
     }
 }
