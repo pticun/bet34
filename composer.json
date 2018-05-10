@@ -81,6 +81,9 @@
         "symfony": {
             "id": "01CAT5PWWRE6RX67XB1Z30HBB5",
             "allow-contrib": false
-        }
+        },
+        "grumphp": {
+          "config-default-path": "test/grumphp.yml"
+        },
     }
 }
