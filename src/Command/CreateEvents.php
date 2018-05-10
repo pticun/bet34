@@ -8,6 +8,8 @@ use App\Field\MarketFieldInterface;
 use App\Manager\BetManager;
 use App\Manager\GameManager;
 
+use App\Repository\GameRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Service\Unibet\EventService;
@@ -40,6 +42,11 @@ class CreateEvents extends Command
     private $gameManager;
 
     /**
+     * @var GameRepository
+     */
+    private $gameRepository;
+
+    /**
      * @var RefreshService
      */
     private $refreshService;
@@ -48,11 +55,13 @@ class CreateEvents extends Command
         BetManager $betManager,
         EntityManagerInterface $em,
         GameManager $gameManager,
+        GameRepository $gameRepository,
         RefreshService $refreshService
     ) {
         $this->betManager = $betManager;
         $this->em = $em;
         $this->gameManager = $gameManager;
+        $this->gameRepository = $gameRepository;
         $this->refreshService = $refreshService;
         parent::__construct();
     }
@@ -69,11 +78,13 @@ class CreateEvents extends Command
         $response = $this->refreshService->refresh();
         $games = json_decode($response->getBody()->getContents(), true)['rows'];
 
-
+        $eventIds = [];
         foreach ($games as $game) {
             if (!$this->shouldProcessGame($game)) {
                 continue;
             }
+
+            $eventIds[] = $game[GameFieldInterface::EVENT_ID];
 
             $gameEntity = $this->gameManager->getOrPersist($game);
             $this->gameManager->updateScore(
@@ -101,6 +112,8 @@ class CreateEvents extends Command
                 );
             }
         }
+
+        $this->markGameAsEnded($eventIds);
         $this->em->flush();
     }
 
@@ -112,5 +125,10 @@ class CreateEvents extends Command
     private function shouldProcessMarket(array $market = []): bool
     {
         return 'Match Result' === $market[MarketFieldInterface::MARKET_TYPE];
+    }
+
+    private function markGameAsEnded(array $liveGameIds): void
+    {
+        $this->gameRepository->markGameAsEnded($liveGameIds);
     }
 }

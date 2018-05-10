@@ -19,32 +19,16 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-//    /**
-//     * @return Game[] Returns an array of Game objects
-//     */
-    /*
-    public function findByExampleField($value)
+    public function markGameAsEnded(array $liveGameIds = []): int
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('game')
+            ->update(Game::class, 'game')
+            ->set('game.isLive', 0)
+            ->andWhere('game.unibetId NOT IN (:liveGameIds)')
+            ->andWhere('game.isLive = true')
+            ->setParameter('liveGameIds', $liveGameIds)
             ->getQuery()
-            ->getResult()
+            ->execute()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Game
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

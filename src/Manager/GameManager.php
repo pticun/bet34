@@ -32,6 +32,7 @@ class GameManager implements ManagerInterface
         $game->setHomeTeamName($data[GameFieldInterface::EVENT_HOME_TEAM_NAME]);
         $game->setAwayTeamName($data[GameFieldInterface::EVENT_AWAY_TEAM_NAME]);
         $game->setUrl($data[GameFieldInterface::URL]);
+        $game->setIsLive(true);
 
         return $game;
     }
