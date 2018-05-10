@@ -1,0 +1,6 @@
+parameters:
+    excludes_analyse:
+        - "%rootDir%/../../../app"
+        - "%rootDir%/../../../test"
+        - "%rootDir%/../../../deploy*.php"
+        - "%rootDir%/../../../web/app*.php"

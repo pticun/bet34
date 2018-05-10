@@ -19,3 +19,8 @@ parameters:
             allow_risky: true
             metadata:
                 priority: 2
+        phpstan:
+            configuration: test/phpstan.neon
+            level: 6
+            metadata:
+                priority: 2
