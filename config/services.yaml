@@ -32,6 +32,11 @@ services:
         bind:
             $em: "@doctrine.orm.default_entity_manager"
 
+    App\Mock\Unibet\:
+        resource: '../src/Mock/Unibet'
+        bind:
+            $unibetApi: "@eight_points_guzzle.client.unibet"
+
     App\Service\Unibet\:
         resource: '../src/Service/Unibet'
         bind:

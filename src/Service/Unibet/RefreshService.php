@@ -4,8 +4,6 @@ namespace App\Service\Unibet;
 
 use GuzzleHttp\Client;
 
-use Psr\Http\Message\ResponseInterface;
-
 class RefreshService implements UnibetInterface
 {
     const REFRESH_URL = 'zones/livebox/overview/refresh.json';
@@ -20,11 +18,13 @@ class RefreshService implements UnibetInterface
         $this->unibetApi = $unibetApi;
     }
 
-    public function refresh(?string $eventId = null): ResponseInterface
+    public function refresh(?string $eventId = null): array
     {
         $url = $this->getUrl($eventId);
 
-        return $this->unibetApi->get($url);
+        $response = $this->unibetApi->get($url);
+
+        return json_decode($response->getBody()->getContents(), true)['rows'];
     }
 
     private function getUrl(?string $eventId = null): string

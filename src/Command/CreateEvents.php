@@ -4,25 +4,14 @@ namespace App\Command;
 
 use App\Field\GameFieldInterface;
 use App\Field\MarketFieldInterface;
-
 use App\Manager\BetManager;
 use App\Manager\GameManager;
-
 use App\Repository\GameRepository;
-
-use Doctrine\ORM\EntityManagerInterface;
-
-use App\Service\Unibet\EventService;
 use App\Service\Unibet\RefreshService;
-use App\Service\Unibet\CalendarService;
-
-use Symfony\Component\Console\Input\InputInterface;
-
-use Symfony\Component\Console\Output\OutputInterface;
-
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-
-use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateEvents extends Command
 {
@@ -75,9 +64,7 @@ class CreateEvents extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $response = $this->refreshService->refresh();
-        $games = json_decode($response->getBody()->getContents(), true)['rows'];
-
+        $games = $this->refreshService->refresh();
         $eventIds = [];
         foreach ($games as $game) {
             if (!$this->shouldProcessGame($game)) {

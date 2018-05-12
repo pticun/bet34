@@ -11,6 +11,21 @@
             "ref": "b50f8aa321cc40c380dda7605aa5cef66f476802"
         }
     },
+    "behat/mink": {
+        "version": "v1.7.1"
+    },
+    "behat/mink-extension": {
+        "version": "2.3.1"
+    },
+    "behat/symfony2-extension": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "6b63fb76d3bb2dd16098f12adf6d6ca844e21862"
+        }
+    },
     "composer/ca-bundle": {
         "version": "1.1.1"
     },
