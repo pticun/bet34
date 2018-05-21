@@ -24,7 +24,7 @@ class RefreshService implements UnibetInterface
 
         $response = $this->unibetApi->get($url);
 
-        return json_decode($response->getBody()->getContents(), true)['rows'];
+        return json_decode($response->getBody()->getContents())->rows;
     }
 
     private function getUrl(?string $eventId = null): string
