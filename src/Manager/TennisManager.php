@@ -28,7 +28,6 @@ class TennisManager implements ManagerInterface
         $match->setHomeShortName($row->homeShortName);
         $match->setAwayName($row->awayName);
         $match->setAwayShortName($row->awayShortName);
-        $this->em->persist($match);
 
         return $match;
     }
@@ -38,9 +37,9 @@ class TennisManager implements ManagerInterface
         return $this->em->getRepository(Tennis::class)->findOneBy(['unibetId' => $unibetId]);
     }
 
-    public function getOrGenerate(string $unibetId, stdClass $row): Tennis
+    public function getOrGenerate(stdClass $row): Tennis
     {
-        if (null !== $match = $this->get($unibetId)) {
+        if (null !== $match = $this->get($row->eventId)) {
             return $match;
         }
 

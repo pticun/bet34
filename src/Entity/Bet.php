@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\SetRepository;
+use App\Repository\BetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SetRepository::class)
- * @ORM\Table(name="Period")
+ * @ORM\Entity(repositoryClass=BetRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class Set
+class Bet
 {
     /**
      * @ORM\Id()
@@ -28,6 +27,31 @@ class Set
      * @ORM\Column(type="datetime")
      */
     private $updated;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $marketType;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $marketId;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $selectionId;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $selectionName;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $rank;
 
     /**
      * @ORM\Column(type="integer")
@@ -55,21 +79,20 @@ class Set
     private $position;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tennis::class)
-     * @ORM\JoinColumn(nullable=false, name="tennis_id")
+     * @ORM\ManyToOne(targetEntity=Set::class)
+     * @ORM\JoinColumn(nullable=false, name="set_id")
      */
-    private $match;
+    private $set;
 
     /**
-     * @ORM\Column(type="integer", name="period")
+     * @var bool
      */
-    private $order;
+    private $isTradable;
 
     public function __construct()
     {
         $this->created = new \DateTime();
-        $this->homeScore = 0;
-        $this->awayScore = 0;
+        $this->isTradable = false;
     }
 
     /**
@@ -99,6 +122,66 @@ class Set
     public function setUpdated(\DateTime $updated): self
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getMarketType(): string
+    {
+        return $this->marketType;
+    }
+
+    public function setMarketType(string $marketType): self
+    {
+        $this->marketType = $marketType;
+
+        return $this;
+    }
+
+    public function getMarketId(): string
+    {
+        return $this->marketId;
+    }
+
+    public function setMarketId(string $marketId): self
+    {
+        $this->marketId = $marketId;
+
+        return $this;
+    }
+
+    public function getSelectionId(): string
+    {
+        return $this->selectionId;
+    }
+
+    public function setSelectionId(string $selectionId): self
+    {
+        $this->selectionId = $selectionId;
+
+        return $this;
+    }
+
+    public function getSelectionName(): string
+    {
+        return $this->selectionName;
+    }
+
+    public function setSelectionName(string $selectionName): self
+    {
+        $this->selectionName = $selectionName;
+
+        return $this;
+    }
+
+    public function getRank(): float
+    {
+        return $this->rank;
+    }
+
+    public function setRank(float $rank): self
+    {
+        $this->rank = $rank;
 
         return $this;
     }
@@ -163,26 +246,26 @@ class Set
         return $this;
     }
 
-    public function getMatch(): Tennis
+    public function getSet(): Set
     {
-        return $this->match;
+        return $this->set;
     }
 
-    public function setMatch(Tennis $match): self
+    public function setSet(Set $set): self
     {
-        $this->match = $match;
+        $this->set = $set;
 
         return $this;
     }
 
-    public function getOrder(): int
+    public function isTradable(): bool
     {
-        return $this->order;
+        return $this->isTradable;
     }
 
-    public function setOrder(int $order): self
+    public function setTradable(bool $isTradable): self
     {
-        $this->order = $order;
+        $this->isTradable = $isTradable;
 
         return $this;
     }

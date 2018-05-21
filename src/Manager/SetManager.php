@@ -28,6 +28,15 @@ class SetManager
         ]);
     }
 
+    public function getLast(Tennis $match): ?Set
+    {
+        return $this->em->getRepository(Set::class)->findOneBy([
+            'match' => $match,
+        ], [
+            'order' => 'DESC',
+        ]);
+    }
+
     public function generate(Tennis $match, int $index, stdClass $row): Set
     {
         $set = new Set();
@@ -35,7 +44,6 @@ class SetManager
         $set->setHomeScore($row->score->homePartialScore[$index]);
         $set->setAwayScore($row->score->awayPartialScore[$index]);
         $set->setOrder($index);
-        $this->em->persist($set);
 
         if (!$this->isCurrentSet($index, $row)) {
             return $set;
