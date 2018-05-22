@@ -93,7 +93,7 @@ class BetValidator
             return
                 (2 <= ($bet->getHomeScore() - $bet->getAwayScore())) ||
                 (
-                    1 <= ($bet->getHomeScore() - $bet->getAwayScore())) &&
+                    1 <= ($bet->getHomeScore() - $bet->getAwayScore()) &&
                     1.25 > $bet->getRank()
                 )
             ;
