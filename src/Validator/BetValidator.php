@@ -90,9 +90,21 @@ class BetValidator
     private function hasBreak(Bet $bet): bool
     {
         if ('HOME' === $bet->getPosition()) {
-            return 2 <= ($bet->getHomeScore() - $bet->getAwayScore());
+            return
+                (2 <= ($bet->getHomeScore() - $bet->getAwayScore())) ||
+                (
+                    1 <= ($bet->getHomeScore() - $bet->getAwayScore())) &&
+                    1.25 > $bet->getRank()
+                )
+            ;
         }
 
-        return 2 <= ($bet->getAwayScore() - $bet->getHomeScore());
+        return
+            (2 <= ($bet->getAwayScore() - $bet->getHomeScore())) ||
+            (
+                1 <= ($bet->getAwayScore() - $bet->getHomeScore()) &&
+                1.25 > $bet->getRank()
+            )
+        ;
     }
 }
