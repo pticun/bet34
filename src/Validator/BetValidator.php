@@ -44,6 +44,10 @@ class BetValidator
             return false;
         }
 
+        if (!$this->hasBreak($bet)) {
+            return false;
+        }
+
         if (!$this->isFirstGameBet($bet)) {
             return false;
         }
@@ -81,5 +85,14 @@ class BetValidator
     private function isFirstGameBet(Bet $bet): bool
     {
         return null === $this->betManager->get($bet->getSet());
+    }
+
+    private function hasBreak(Bet $bet): bool
+    {
+        if ('HOME' === $bet->getPosition()) {
+            return 2 >= ($bet->getHomeScore() - $bet->getAwayScore());
+        }
+
+        return 2 >= ($bet->getAwayScore() - $bet->getHomeScore());
     }
 }
