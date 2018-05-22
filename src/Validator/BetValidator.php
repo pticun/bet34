@@ -80,6 +80,6 @@ class BetValidator
 
     private function isFirstGameBet(Bet $bet): bool
     {
-        return null === $this->betManager->get($bet);
+        return null === $this->betManager->get($bet->getSet());
     }
 }
