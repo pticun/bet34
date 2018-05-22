@@ -79,6 +79,11 @@ class Bet
     private $position;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isWin;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Set::class)
      * @ORM\JoinColumn(nullable=false, name="set_id")
      */
@@ -266,6 +271,18 @@ class Bet
     public function setTradable(bool $isTradable): self
     {
         $this->isTradable = $isTradable;
+
+        return $this;
+    }
+
+    public function isWin(): bool
+    {
+        return $this->isWin;
+    }
+
+    public function setWin(bool $isWin): self
+    {
+        $this->isWin = $isWin;
 
         return $this;
     }
