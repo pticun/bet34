@@ -38,6 +38,6 @@ class Login extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        dump($this->historyService->getHistory());
+        $this->historyService->getHistory();
     }
 }

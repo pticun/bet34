@@ -3,17 +3,26 @@
 namespace App\Validator;
 
 use App\Entity\Bet;
+use App\Manager\BetManager;
 use App\Manager\SetManager;
 
 class BetValidator
 {
     /**
+     * @var BetManager
+     */
+    private $betManager;
+
+    /**
      * @var SetManager
      */
     private $setManager;
 
-    public function __construct(SetManager $setManager)
-    {
+    public function __construct(
+        BetManager $betManager,
+        SetManager $setManager
+    ) {
+        $this->betManager = $betManager;
         $this->setManager = $setManager;
     }
 
@@ -32,6 +41,10 @@ class BetValidator
         }
 
         if (!$this->isValidPoint($bet)) {
+            return false;
+        }
+
+        if (!$this->isFirstGameBet($bet)) {
             return false;
         }
 
@@ -63,5 +76,10 @@ class BetValidator
                 '15' === $bet->getAwayPoint()
             )
         ;
+    }
+
+    private function isFirstGameBet(Bet $bet): bool
+    {
+        return null === $this->betManager->get($bet);
     }
 }
