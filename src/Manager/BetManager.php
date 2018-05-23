@@ -56,9 +56,7 @@ class BetManager
         }
 
         foreach ($sets as $set) {
-            if (null === $set->getId()) {
-                $this->em->persist($set);
-            }
+            $this->em->persist($set);
         }
 
         $this->em->persist($bet);
