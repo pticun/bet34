@@ -5,6 +5,7 @@ namespace App\Validator;
 use App\Entity\Bet;
 use App\Manager\BetManager;
 use App\Manager\SetManager;
+use App\Service\BreakService;
 
 class BetValidator
 {
@@ -14,15 +15,22 @@ class BetValidator
     private $betManager;
 
     /**
+     * @var BreakService
+     */
+    private $breakService;
+
+    /**
      * @var SetManager
      */
     private $setManager;
 
     public function __construct(
         BetManager $betManager,
+        BreakService $breakService,
         SetManager $setManager
     ) {
         $this->betManager = $betManager;
+        $this->breakService = $breakService;
         $this->setManager = $setManager;
     }
 
@@ -49,6 +57,10 @@ class BetValidator
         }
 
         if (!$this->isFirstGameBet($bet)) {
+            return false;
+        }
+
+        if ($this->breakService->hasBeenBreakedDuringSet($bet)) {
             return false;
         }
 

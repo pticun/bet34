@@ -47,17 +47,18 @@ class BetManager
         return $bet;
     }
 
-    public function persist(Bet $bet): void
+    public function persist(Bet $bet, array $sets = []): void
     {
         $match = $bet->getSet()->getMatch();
-        $set = $bet->getSet();
 
         if (null === $match->getId()) {
             $this->em->persist($match);
         }
 
-        if (null === $set->getId()) {
-            $this->em->persist($set);
+        foreach ($sets as $set) {
+            if (null === $set->getId()) {
+                $this->em->persist($set);
+            }
         }
 
         $this->em->persist($bet);
