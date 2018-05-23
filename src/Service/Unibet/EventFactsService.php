@@ -22,6 +22,6 @@ class EventFactsService implements UnibetInterface
     {
         $response = $this->unibetApi->get(sprintf(self::EVENT_FACTS_URL, $unibetId));
 
-        return json_decode($response->getBody()->getContents(), true);
+        return json_decode($response->getBody()->getContents(), true)['rows'];
     }
 }
