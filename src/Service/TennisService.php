@@ -70,7 +70,7 @@ class TennisService
             );
 
             if ($this->betValidator->shouldProcess($bet)) {
-                $this->betManager->persist($bet);
+                $this->betManager->persist($bet, $sets);
             }
         }
     }
