@@ -60,7 +60,7 @@ class BetValidator
             return false;
         }
 
-        if ($this->breakService->hasBeenBreakedDuringSet($bet)) {
+        if ($this->breakService->hasBeenBreaked($bet)) {
             return false;
         }
 
