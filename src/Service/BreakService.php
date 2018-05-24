@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Bet;
+use App\Helper\BetHelper;
 use App\Service\Unibet\EventFactsService;
 
 class BreakService
@@ -37,15 +38,6 @@ class BreakService
 
     private function getBreakText(Bet $bet): string
     {
-        return sprintf('Break pour %s', $this->getOpponentPlayerNameFromPosition($bet));
-    }
-
-    private function getOpponentPlayerNameFromPosition(Bet $bet): string
-    {
-        if ('HOME' === $bet->getPosition()) {
-            return $bet->getSet()->getMatch()->getAwayName();
-        }
-
-        return $bet->getSet()->getMatch()->getHomeName();
+        return sprintf('Break pour %s', BetHelper::getOpponentName($bet));
     }
 }
