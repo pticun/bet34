@@ -57,7 +57,9 @@ class Results extends Command
 
     private function setResult(Bet $bet): void
     {
-        $isWin = $this->betResultService->getResultForBet($bet);
+        if (null === $isWin = $this->betResultService->getResultForBet($bet)) {
+            return;
+        }
         $bet->setWin($isWin);
     }
 }
