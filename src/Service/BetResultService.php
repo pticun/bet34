@@ -37,31 +37,50 @@ class BetResultService
 
     private function isSuccessed(Bet $bet, array $eventFact): bool
     {
-        return false !== strpos($eventFact['displayText'], $this->getSuccessText($bet));
+        foreach ($this->getResultTexts() as $text) {
+            if (false !== strpos($eventFact['displayText'], $this->getSuccessText($bet, $text))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function isFailed(Bet $bet, array $eventFact): bool
     {
-        return false !== strpos($eventFact['displayText'], $this->getFailedText($bet));
+        foreach ($this->getResultTexts() as $text) {
+            if (false !== strpos($eventFact['displayText'], $this->getFailedText($bet, $text))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    private function getSuccessText(Bet $bet): string
+    private function getSuccessText(Bet $bet, string $text): string
     {
         return sprintf(
-            'Set %d, Jeu %d : %s',
+            $text,
             BetHelper::getCurrentSetNumber($bet),
             BetHelper::getCurrentGameNumber($bet),
             BetHelper::getPlayerName($bet)
         );
     }
 
-    private function getFailedText(Bet $bet): string
+    private function getFailedText(Bet $bet, string $text): string
     {
         return sprintf(
-            'Set %d, Jeu %d : Break pour %s',
             BetHelper::getCurrentSetNumber($bet),
             BetHelper::getCurrentGameNumber($bet),
             BetHelper::getOpponentName($bet)
         );
+    }
+
+    private function getResultTexts(): array
+    {
+        return [
+            'Set %d, Jeu %d : %s',
+            'Set %d, Jeu %d : Break pour %s',
+        ];
     }
 }
