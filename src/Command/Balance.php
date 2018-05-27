@@ -48,7 +48,7 @@ class Balance extends Command
         $output->writeln(sprintf('Nombre de paris gagnés : %d (%d %%)', $nbWonBet, $percentageWonBet));
 
         // Balance
-        $output->writeln(sprintf('Balance : %f', $this->balanceService->getBalance($day)));
+        $output->writeln(sprintf('Balance : 1€ ==> %f€', 1 + $this->balanceService->getBalance($day)));
     }
 
     private function getDay(): DateTime
