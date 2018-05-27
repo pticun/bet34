@@ -60,13 +60,13 @@ class TennisService
         }
 
         foreach ($market->selections as $selection) {
-            $rank = $this->getRank($selection->currentPriceUp, $selection->currentPriceDown);
             $bet = $this->betManager->generate(
                 $currentSet,
                 $market,
                 $selection->selectionId,
                 $selection->name,
-                $rank
+                $selection->currentPriceUp,
+                $selection->currentPriceDown
             );
 
             if ($this->betValidator->shouldProcess($bet)) {
@@ -105,10 +105,5 @@ class TennisService
         $game = 1 + $set->getHomeScore() + $set->getAwayScore();
 
         return sprintf('Game Winner (Set %d, Game %d)', $set->getOrder() + 1, $game);
-    }
-
-    private function getRank(int $currentPriceUp, int $currentPriceDown): float
-    {
-        return number_format(($currentPriceUp + $currentPriceDown) / $currentPriceDown, 2);
     }
 }

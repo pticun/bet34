@@ -56,6 +56,16 @@ class Bet
     /**
      * @ORM\Column(type="integer")
      */
+    private $priceUp;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $priceDown;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $homeScore;
 
     /**
@@ -187,6 +197,30 @@ class Bet
     public function setRank(float $rank): self
     {
         $this->rank = $rank;
+
+        return $this;
+    }
+
+    public function getPriceUp(): int
+    {
+        return $this->priceUp;
+    }
+
+    public function setPriceUp(int $priceUp): self
+    {
+        $this->priceUp = $priceUp;
+
+        return $this;
+    }
+
+    public function getPriceDown(): int
+    {
+        return $this->priceDown;
+    }
+
+    public function setPriceDown(int $priceDown): self
+    {
+        $this->priceDown = $priceDown;
 
         return $this;
     }

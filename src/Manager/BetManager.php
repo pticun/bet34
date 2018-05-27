@@ -28,8 +28,10 @@ class BetManager
         ]);
     }
 
-    public function generate(Set $set, stdClass $row, string $selectionId, string $selectionName, float $rank): Bet
+    public function generate(Set $set, stdClass $row, string $selectionId, string $selectionName, int $currentPriceUp, int $currentPriceDown): Bet
     {
+        $rank = $this->getRank($currentPriceUp, $currentPriceDown);
+
         $bet = new Bet();
         $bet->setSet($set);
         $bet->setMarketType($row->markettype);
@@ -60,5 +62,10 @@ class BetManager
         }
 
         $this->em->persist($bet);
+    }
+
+    private function getRank(int $currentPriceUp, int $currentPriceDown): float
+    {
+        return number_format(($currentPriceUp + $currentPriceDown) / $currentPriceDown, 2);
     }
 }
