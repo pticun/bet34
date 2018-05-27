@@ -57,13 +57,11 @@ class Live extends Command
     {
         $rows = $this->refreshService->refresh();
 
-        $eventIds = [];
         foreach ($rows as $row) {
             if (!$this->shouldProcessGame($row)) {
                 continue;
             }
 
-            $eventIds[] = $row->eventId;
             $this->tennisService->process($row);
         }
 
