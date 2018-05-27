@@ -37,6 +37,8 @@ class BetManager
         $bet->setMarketType($row->markettype);
         $bet->setMarketId($row->marketId);
         $bet->setRank($rank);
+        $bet->setPriceUp($currentPriceUp);
+        $bet->setPriceDown($currentPriceDown);
         $bet->setHomeScore($set->getHomeScore());
         $bet->setAwayScore($set->getAwayScore());
         $bet->setHomePoint($set->getHomePoint());
