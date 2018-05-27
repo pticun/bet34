@@ -43,9 +43,12 @@ class Balance extends Command
             return;
         }
 
-        $percentageWonBet = ($nbWonBet / $nbBet) * 100;
         // Nombre de paris gagnés
+        $percentageWonBet = ($nbWonBet / $nbBet) * 100;
         $output->writeln(sprintf('Nombre de paris gagnés : %d (%d %%)', $nbWonBet, $percentageWonBet));
+
+        // Balance
+        $output->writeln(sprintf('Balance : %f', $this->balanceService->getBalance($day)));
     }
 
     private function getDay(): DateTime

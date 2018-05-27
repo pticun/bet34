@@ -50,4 +50,25 @@ class BalanceService
             ->getSingleResult()['NB']
         ;
     }
+
+    public function getSumWinBet(DateTime $day): float
+    {
+        $start = (clone $day)->modify('midnight');
+        $end = (clone $start)->modify('+ 1 day');
+
+        return
+            $this->betRepository->createQueryBuilder('bet')
+            ->select('SUM(bet.rank) AS NB')
+            ->andWhere('bet.isWin = :isWin')
+            ->andWhere('bet.created BETWEEN :start and :end')
+            ->setParameters(['isWin' => true, 'start' => $start, 'end' => $end])
+            ->getQuery()
+            ->getSingleResult()['NB']
+        ;
+    }
+
+    public function getBalance(DateTime $day): float
+    {
+        return $this->getSumWinBet($day) - $this->getNbBet($bet);
+    }
 }
