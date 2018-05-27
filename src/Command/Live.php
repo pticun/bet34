@@ -55,6 +55,14 @@ class Live extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        for ($i = 1; $i < 12; ++$i) {
+            $this->process();
+            sleep(5);
+        }
+    }
+
+    private function process(): void
+    {
         $this->logger->critical('start refresh');
         $rows = $this->refreshService->refresh();
 
