@@ -47,9 +47,9 @@ class Live extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        for ($i = 0; $i < 12; ++$i) {
+        for ($i = 0; $i < 30; ++$i) {
             $this->process();
-            sleep(5);
+            sleep(2);
         }
     }
 
