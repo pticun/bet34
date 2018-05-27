@@ -69,6 +69,6 @@ class BalanceService
 
     public function getBalance(DateTime $day): float
     {
-        return $this->getSumWinBet($day) - $this->getNbBet($bet);
+        return $this->getSumWinBet($day) - $this->getNbBet($day);
     }
 }
