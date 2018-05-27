@@ -8,16 +8,12 @@ class BetHelper
 {
     public static function getPlayerName(Bet $bet): string
     {
-        if ('HOME' === $bet->getPosition()) {
-            return $bet->getSet()->getMatch()->getHomeName();
-        }
-
-        return $bet->getSet()->getMatch()->getAwayName();
+        return $bet->getSelectionName();
     }
 
     public static function getOpponentName(Bet $bet): string
     {
-        if ('HOME' === $bet->getPosition()) {
+        if ($bet->getSelectionName() === $bet->getSet()->getMatch()->getHomeName()) {
             return $bet->getSet()->getMatch()->getAwayName();
         }
 
