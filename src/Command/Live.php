@@ -5,7 +5,6 @@ namespace App\Command;
 use App\Service\TennisService;
 use App\Service\Unibet\RefreshService;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use stdClass;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,11 +18,6 @@ class Live extends Command
     private $em;
 
     /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
      * @var TennisService
      */
     private $tennisService;
@@ -35,12 +29,10 @@ class Live extends Command
 
     public function __construct(
         EntityManagerInterface $em,
-        LoggerInterface $logger,
         TennisService $tennisService,
         RefreshService $refreshService
     ) {
         $this->em = $em;
-        $this->logger = $logger;
         $this->tennisService = $tennisService;
         $this->refreshService = $refreshService;
         parent::__construct();
@@ -55,7 +47,7 @@ class Live extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        for ($i = 1; $i < 12; ++$i) {
+        for ($i = 0; $i < 12; ++$i) {
             $this->process();
             sleep(5);
         }
@@ -63,7 +55,6 @@ class Live extends Command
 
     private function process(): void
     {
-        $this->logger->critical('start refresh');
         $rows = $this->refreshService->refresh();
 
         $eventIds = [];
