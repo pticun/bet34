@@ -55,7 +55,7 @@ class Live extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // $this->logger->info('start refresh');
+        $this->logger->critical('start refresh');
         $rows = $this->refreshService->refresh();
 
         $eventIds = [];
