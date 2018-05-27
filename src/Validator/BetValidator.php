@@ -47,22 +47,22 @@ class BetValidator
         if (!$this->isPositionToWinner($bet)) {
             return false;
         }
-
-        if (!$this->isValidPoint($bet)) {
-            return false;
-        }
-
-        if (!$this->hasBreak($bet)) {
-            return false;
-        }
-
-        if (!$this->isFirstGameBet($bet)) {
-            return false;
-        }
-
-        if ($this->breakService->hasBeenBreaked($bet)) {
-            return false;
-        }
+        //
+        // if (!$this->isValidPoint($bet)) {
+        //     return false;
+        // }
+        //
+        // if (!$this->hasBreak($bet)) {
+        //     return false;
+        // }
+        //
+        // if (!$this->isFirstGameBet($bet)) {
+        //     return false;
+        // }
+        //
+        // if ($this->breakService->hasBeenBreaked($bet)) {
+        //     return false;
+        // }
 
         return true;
     }
@@ -70,8 +70,8 @@ class BetValidator
     private function isValidRank(Bet $bet): bool
     {
         return
-            1.15 <= $bet->getRank() &&
-            1.35 >= $bet->getRank()
+            1.35 <= $bet->getRank() &&
+            1.50 >= $bet->getRank()
         ;
     }
 
