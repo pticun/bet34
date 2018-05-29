@@ -47,6 +47,10 @@ class BetValidator
         if (!$this->isPositionToWinner($bet)) {
             return false;
         }
+
+        if (!$this->isRandom()) {
+            return false;
+        }
         //
         // if (!$this->isValidPoint($bet)) {
         //     return false;
@@ -118,5 +122,10 @@ class BetValidator
                 1.25 > $bet->getRank()
             )
         ;
+    }
+
+    private function isRandom(): bool
+    {
+        return 67 < rand(0, 100);
     }
 }
