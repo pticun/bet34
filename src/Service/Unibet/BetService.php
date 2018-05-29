@@ -36,7 +36,7 @@ class BetService
                 'priceDown' => $bet->getPriceDown(),
                 'priceUp' => $bet->getPriceUp(),
                 'selectionId' => $bet->getSelectionId(),
-                'stake': 0.1
+                'stake' => 0.1,
             ],
         ]);
 
