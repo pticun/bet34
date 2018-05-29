@@ -40,6 +40,6 @@ class BetService
             ],
         ]);
 
-        return json_decode($response->getBody()->getContents(), true);
+        return; //json_decode($response->getBody()->getContents(), true);
     }
 }
