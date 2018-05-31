@@ -74,8 +74,8 @@ class BetValidator
     private function isValidRank(Bet $bet): bool
     {
         return
-            1.70 <= $bet->getRank() &&
-            2 >= $bet->getRank()
+            1.3 <= $bet->getRank() &&
+            1.4 >= $bet->getRank()
         ;
     }
 
